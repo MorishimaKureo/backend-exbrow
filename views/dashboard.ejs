@@ -26,11 +26,20 @@
   <td><%= l.device_id || '-' %></td>
   <td><%= l.status %></td>
   <td>
-    <form method="POST" action="/admin/disable/<%= l.license_key %>">
-      <button>Disable</button>
+    <form method="POST" action="/admin/reset/<%= l.license_key %>" style="display:inline;">
+      <button>Reset Device</button>
     </form>
-    <form method="POST" action="/admin/delete/<%= l.license_key %>">
-      <button>Delete</button>
+    <% if (l.status === 'active') { %>
+      <form method="POST" action="/admin/disable/<%= l.license_key %>" style="display:inline;">
+        <button>Disable</button>
+      </form>
+    <% } else { %>
+      <form method="POST" action="/admin/enable/<%= l.license_key %>" style="display:inline;">
+        <button>Enable</button>
+      </form>
+    <% } %>
+    <form method="POST" action="/admin/delete/<%= l.license_key %>" style="display:inline;">
+      <button onclick="return confirm('Yakin?')">Delete</button>
     </form>
   </td>
 </tr>

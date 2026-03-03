@@ -83,6 +83,18 @@ app.post('/admin/disable/:key', isAuth, (req, res) => {
   res.redirect('/dashboard');
 });
 
+app.post('/admin/reset/:key', isAuth, (req, res) => {
+  db.run(`UPDATE licenses SET device_id = NULL WHERE license_key = ?`,
+    [req.params.key]);
+  res.redirect('/dashboard');
+});
+
+app.post('/admin/enable/:key', isAuth, (req, res) => {
+  db.run(`UPDATE licenses SET status = 'active' WHERE license_key = ?`,
+    [req.params.key]);
+  res.redirect('/dashboard');
+});
+
 app.post('/admin/delete/:key', isAuth, (req, res) => {
   db.run(`DELETE FROM licenses WHERE license_key = ?`,
     [req.params.key]);
