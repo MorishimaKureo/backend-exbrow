@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>License Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h2>License Dashboard</h2>
+
+<form method="POST" action="/admin/generate">
+  <button type="submit">Generate License</button>
+</form>
+
+<table>
+<tr>
+  <th>Key</th>
+  <th>Device</th>
+  <th>Status</th>
+  <th>Action</th>
+</tr>
+
+<% licenses.forEach(l => { %>
+<tr>
+  <td><%= l.license_key %></td>
+  <td><%= l.device_id || '-' %></td>
+  <td><%= l.status %></td>
+  <td>
+    <form method="POST" action="/admin/disable/<%= l.license_key %>">
+      <button>Disable</button>
+    </form>
+    <form method="POST" action="/admin/delete/<%= l.license_key %>">
+      <button>Delete</button>
+    </form>
+  </td>
+</tr>
+<% }) %>
+
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>
