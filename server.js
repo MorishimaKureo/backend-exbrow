@@ -26,6 +26,12 @@ function isAuth(req, res, next) {
   next();
 }
 
+/* ---------- ROOT ---------- */
+
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 /* ---------- AUTH ---------- */
 
 app.get('/login', (req, res) => {
@@ -105,6 +111,7 @@ app.post('/activate', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
